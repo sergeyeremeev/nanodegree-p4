@@ -49,7 +49,7 @@ gulp.task('html-critical', ['html'], function () {
 gulp.task('images', function(cb) {
     gulp.src(['dev/**/*.png','dev/**/*.jpg','dev/**/*.gif','dev/**/*.jpeg'])
         .pipe(imageop({
-            optimizationLevel: 3,
+            optimizationLevel: 4,
             progressive: true,
             interlaced: true
         }))
