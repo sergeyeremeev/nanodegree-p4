@@ -4,6 +4,8 @@ var gulp = require('gulp'),
     minifyCSS = require('gulp-minify-css'),
     critical = require('critical').stream,
     imageop = require('gulp-image-optimization'),
+    browserSync = require('browser-sync'),
+    reload = browserSync.reload,
     del = require('del');
 
 // clean task to clean build folder before building an entire app
@@ -15,14 +17,16 @@ gulp.task('clean', function (cb) {
 gulp.task('scripts', function () {
     gulp.src('dev/**/*.js')
         .pipe(uglify())
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('build'))
+        .pipe(reload({ stream:true }));
 });
 
 // minify styles
 gulp.task('styles', function () {
     gulp.src('dev/**/*.css')
         .pipe(minifyCSS())
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('build'))
+        .pipe(reload({ stream:true }));
 });
 
 // minify html
@@ -42,18 +46,33 @@ gulp.task('html', function() {
 gulp.task('html-critical', ['html'], function () {
     gulp.src('build/*.html')
         .pipe(critical({base: './', inline: true, css: 'dev/css/style.css', width: 1920, height: 1200, minify: true}))
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest('build'))
+        .pipe(reload({ stream:true }));
 });
 
 // optimize images
 gulp.task('images', function(cb) {
     gulp.src(['dev/**/*.png','dev/**/*.jpg','dev/**/*.gif','dev/**/*.jpeg'])
         .pipe(imageop({
-            optimizationLevel: 4,
+            optimizationLevel: 5,
             progressive: true,
             interlaced: true
         }))
         .pipe(gulp.dest('build'));
+});
+
+// watch task
+gulp.task('serve', function () {
+    browserSync({
+        port: 8000,
+        server: {
+            baseDir: 'build'
+        }
+    });
+
+    gulp.watch('dev/**/*.css', ['styles']);
+    gulp.watch('dev/**/*.html', ['html-critical']);
+    gulp.watch('dev/**/*.js', ['scripts']);
 });
 
 // default build task to clean build directory, then create the correct folder

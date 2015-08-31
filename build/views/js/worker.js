@@ -1,1 +1,0 @@
-onmessage=function(a){for(var s=a.data,e=8*Math.ceil(1280/330),t=0;e>t;t++)phase=Math.sin(s/1250+t%5);postMessage(phase)};

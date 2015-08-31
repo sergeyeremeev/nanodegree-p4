@@ -31,8 +31,12 @@ form {
 
 .mover {
   position: fixed;
+  /* add left position to be used with new scripts that apply transform */
+  left: 0;
   width: 256px;
   z-index: -1;
+  /* promote .mover to its own layer, use backface-visibility for browsers that
+     don't support will-change yet */
   backface-visibility: hidden;
   will-change: transform;
 }
@@ -45,9 +49,9 @@ form {
 .randomPizzaContainer:after {
   content: "";
   display: table;
-  clear:both;
+  clear: both;
 }
 
- .container {
+.container {
   background-color: rgba(240, 60, 60, 0.8);
 }
