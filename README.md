@@ -7,7 +7,7 @@
 3. To create a server and automatically open index.html either run `gulp serve` command from terminal or manually navigate to ./build/ folder and open index.html in your browser;
 4. Enjoy the performance.
 
-**Following is a list of optimizations made to ensure a good score on PageSpeed insights for index.html and 60+ fps for pizza.html**
+###Following is a list of optimizations made to ensure a good score on PageSpeed insights for index.html and 60+ fps for pizza.html
 1. PageSpeed optimizations
   - add `async` to script tags in `head` element that didn't have it, to run them asynchronously and prevent render blocking;
   - add `media="print"` to print stylesheet, to prevent render blocking when it's not in fact needed;
